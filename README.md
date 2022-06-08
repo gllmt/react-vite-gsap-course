@@ -1,5 +1,7 @@
 # react-vite-gsap-course
 
+React test project with Vitejs and GSAP.
+
 - Support HMR, GSAP.
 - Work Well with Node V17.4.0.
 
