@@ -6,11 +6,12 @@ import ContentSection from './components/ContentSection'
 import CrossRevealSection from './components/CrossRevealSection'
 import FaceOne from '../src/assets/images/faceOne.jpg'
 import LandscapeOne from '../src/assets/images/landscapeOne.jpg'
+import LandscapeTwo from '../src/assets/images/LandscapeTwo.jpg'
 
 const StyledHeroSection = styled.section`
 display: flex;
 position: relative;
-width: 1OOvw;
+width: 100vw;
 height: 100vh;
 flex-direction: column;
 align-items: center;
@@ -32,7 +33,6 @@ text-transform: uppercase;
 padding-top: 4rem;
 `
 
-
 function App() {
   return (
     <>
@@ -50,6 +50,18 @@ function App() {
         sentenceOne={"We only launch"}
         sentenceTwo={"What we love"}
         authorName={"Pierre."}
+        crossreveal={"xPercent"}
+      />
+      <ContentSection title={"Take Care 2"} text={"Cardigan 2 polaroid vinyl whatever live-edge flannel, letterpress gluten-free stumptown tote bag brooklyn you probably haven't heard of them kickstarter gochujang."}/>
+      <CrossRevealSection 
+        face={FaceOne}
+        landscape={LandscapeTwo}
+        personName={"Pierre."}
+        job={"Founder"}
+        sentenceOne={"We only launch"}
+        sentenceTwo={"What we love"}
+        authorName={"Pierre."}
+        crossreveal={"yPercent"}
       />
     </>
   )

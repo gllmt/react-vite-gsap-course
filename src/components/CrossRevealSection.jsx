@@ -1,5 +1,10 @@
-import React from "react";
-import styled from "styled-components"
+import React, { useRef, useEffect } from "react";
+import styled from "styled-components";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+// import { useRef,useEffect } from "react";
+
+gsap.registerPlugin(ScrollTrigger)
 
 const StyledCrossRevealContainer = styled.section`
 position: relative;
@@ -12,35 +17,35 @@ padding-bottom: 56.25%;
   position: absolute;
   overflow: hidden;
   top:0;
-  /*left:0;*/
-  transform: translate(100%, 0);
+  left:0;
+  transform: translate(100%, 0px);
 }
 .afterImage img {
-  transform: translate(-100%, 0);
+  transform: translate(-100%, 0px);
 }
 .crossRevealImage img {
   width:100%;
   height:100%;
   position: absolute;
   top:0;
-  /*left:0;*/
+  left:0;
 }
 .person__content {
   color: #080F0F;
-  position; absolute;
+  position: absolute;
   top: 45%;
   left: 15vw;
-  .person__name {
-    font-size: 17px;
-    font-weight: 700;
-    line-height:  1.3;
-  }
-  .person__job {
-    font-size: 17px;
-    font-weight: 400;
-    letter-spacing: -0.022em;
-    line-height:  1.3;
-  }
+}
+.person__name {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.person__job {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.3;
 }
 .landscape__wrapper {
   position: absolute;
@@ -50,40 +55,83 @@ padding-bottom: 56.25%;
   width: 90%;
   margin: 0 0;
   text-align: center;
-
-  .quote__sentence {
-    color: #FFF;
-    font-size: 80px;
-    font-weight: 700;
-    line-height: 1.03;
-    letter-spacing: -0.015em;
-  }
-
-  .author__name {
-    padding-top: 20px;
-    color: #FFF;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.14;
-    letter-spacing: 0;
-  }
+}
+.quote__sentence {
+  color: #FFF;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.015em;
+}
+.author__name {
+  padding-top: 20px;
+  color: #FFF;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: 0;
 }
 `
 
-function CrossRevealSection({face, landscape, personName, job, sentenceOne, sentenceTwo, authorName}) {
+function CrossRevealSection({face, landscape, personName, job, sentenceOne, sentenceTwo, authorName, crossreveal}) {
+  // animate the container one way
+  const containerRef = useRef(null);
+  // animate the image the opposite way at the same time
+  const imageRef = useRef(null);
+  // specify the point we want our animation to start
+  const triggerRef = useRef(null);
+  // target the person container 
+  const personRef = useRef(null);
+  // target a quote container 
+  const quoteRef = useRef(null);
+
+  useEffect(() => {
+    const crossRevealTween = gsap.timeline({
+      defaults: {ease:"none"},
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        start: "center center",
+        end: () => "+=" + triggerRef.current.offsetWidth,
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        // markers: true,
+      },
+    });
+
+    // animate the container one way
+    crossRevealTween
+    .fromTo(
+      containerRef.current,
+      { [crossreveal]: 100, x: 0 },
+      { [crossreveal]: 0 }
+    )
+    // and animate the image the opposite way at the same time
+    .fromTo(
+      imageRef.current,
+      { [crossreveal]: -100, x:0 },
+      { [crossreveal]: 0 },
+      0
+    )
+    // fade In the name and the job 
+    .from(personRef.current, { autoAlpha: 0 }, 0)
+    // fade in the quotes
+    .from(quoteRef.current, {autoAlpha:0, delay:0.26}, 0)
+  }, [crossreveal]);
+
   return(
-    <StyledCrossRevealContainer>
+    <StyledCrossRevealContainer ref={triggerRef}>
       <div className="crossRevealImage">
         <img src={face} alt="" />
-        <div className="person__content">
+        <div className="person__content" ref={personRef}>
           <h3 className="person__name">{personName}</h3>
           <p className="person__job">{job}</p>
         </div>
       </div>  
-      <div className="crossRevealImage afterImage">
-        <img src={landscape} alt="" />
+      <div className="crossRevealImage afterImage" ref={containerRef}>
+        <img src={landscape} alt="" ref={imageRef}/>
       </div>
-      <div className="landscape__wrapper">
+      <div className="landscape__wrapper" ref={quoteRef}>
         <p className="quote__sentence">
           {sentenceOne}
           <br/>

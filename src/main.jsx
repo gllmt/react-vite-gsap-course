@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
     //border: 1px solid red;
   }
+
+  * {
+    min-height: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+  }
   
   ::-moz-selection {
     color:#fff;
