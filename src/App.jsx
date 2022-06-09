@@ -2,6 +2,10 @@ import { useState } from 'react'
 import logo from './assets/logo.svg'
 import styled from "styled-components"
 import ParallaxHeroSection from './components/ParallaxHeroSection/ParallaxHeroSection'
+import ContentSection from './components/ContentSection'
+import CrossRevealSection from './components/CrossRevealSection'
+import FaceOne from '../src/assets/images/faceOne.jpg'
+import LandscapeOne from '../src/assets/images/landscapeOne.jpg'
 
 const StyledHeroSection = styled.section`
 display: flex;
@@ -31,11 +35,23 @@ padding-top: 4rem;
 
 function App() {
   return (
-    <StyledHeroSection>
-      <img src={logo} alt="logo" />
-      <StyledTitle>Back to smooth and firm skin</StyledTitle>
-      <ParallaxHeroSection />
-    </StyledHeroSection>
+    <>
+      <StyledHeroSection>
+        <img src={logo} alt="logo" />
+        <StyledTitle>Back to smooth and firm skin</StyledTitle>
+        <ParallaxHeroSection />
+      </StyledHeroSection>
+      <ContentSection title={"Take Care"} text={"Cardigan polaroid vinyl whatever live-edge flannel, letterpress gluten-free stumptown tote bag brooklyn you probably haven't heard of them kickstarter gochujang."}/>
+      <CrossRevealSection 
+        face={FaceOne}
+        landscape={LandscapeOne}
+        personName={"Pierre."}
+        job={"Founder"}
+        sentenceOne={"We only launch"}
+        sentenceTwo={"What we love"}
+        authorName={"Pierre."}
+      />
+    </>
   )
 }
 
