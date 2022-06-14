@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components"
 
+import { SplitText } from "../utils/SplitText";
+
 const StyledContentSection = styled.div`
 display: flex;
 position: relative;
@@ -35,7 +37,9 @@ function ContentSection(props) {
     <StyledContentSection>
       <div className="content__wrapper">
         <h2>{props.title}</h2>
-        <h3>{props.text}</h3>
+        <h3>
+          <SplitText>{props.text}</SplitText>
+        </h3>
       </div>
     </StyledContentSection>
   )

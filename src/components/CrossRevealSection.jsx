@@ -119,7 +119,7 @@ function CrossRevealSection({face, landscape, personName, job, sentenceOne, sent
     .from(quoteRef.current, {autoAlpha:0, delay:0.26}, 0)
   }, [crossreveal]);
 
-  return(
+  return (
     <StyledCrossRevealContainer ref={triggerRef}>
       <div className="crossRevealImage">
         <img src={face} alt="" />
@@ -127,20 +127,20 @@ function CrossRevealSection({face, landscape, personName, job, sentenceOne, sent
           <h3 className="person__name">{personName}</h3>
           <p className="person__job">{job}</p>
         </div>
-      </div>  
-      <div className="crossRevealImage afterImage" ref={containerRef}>
-        <img src={landscape} alt="" ref={imageRef}/>
       </div>
-      <div className="landscape__wrapper" ref={quoteRef}>
+      <div className="crossRevealImage afterImage" ref={containerRef}>
+        <img src={landscape} alt="" ref={imageRef} />
+      </div>
+      <div ref={quoteRef} className="landscape__wrapper">
         <p className="quote__sentence">
           {sentenceOne}
-          <br/>
+          <br />
           {sentenceTwo}
         </p>
         <p className="author__name">{authorName}</p>
       </div>
     </StyledCrossRevealContainer>
-  )
+  );
 }
 
 export default CrossRevealSection
